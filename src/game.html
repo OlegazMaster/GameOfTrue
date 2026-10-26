@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#120c09">
+<title>Арена</title>
+<style>
+:root{--acc:#ff9a2e;--fg:#f3e6d6;--bg:#120c09}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:15px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;touch-action:none;overscroll-behavior:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#h{pointer-events:none}
+#menu{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(40,20,10,.72),rgba(10,6,4,.92));z-index:10;padding:16px;overflow:auto}
+#menu .box{max-width:460px;width:100%;display:flex;flex-direction:column;gap:14px;text-align:center}
+#menu h1{margin:0;font-size:46px;letter-spacing:.14em;font-weight:900;color:var(--acc);text-shadow:0 0 24px rgba(255,120,30,.45),0 3px 0 #5a2a08}
+#menu .sub{color:#c9b39c;margin-top:-8px}
+#menu button{font:inherit;font-weight:800;letter-spacing:.06em;border:0;border-radius:12px;padding:14px 18px;cursor:pointer;background:var(--acc);color:#1d0e04;font-size:17px}
+#menu button.sec{background:rgba(255,255,255,.1);color:var(--fg);font-weight:600;font-size:15px}
+#menu .help{font-size:13px;color:#bfa58c;text-align:left;background:rgba(0,0,0,.35);border:1px solid rgba(255,160,80,.15);border-radius:12px;padding:10px 14px;line-height:1.6}
+#menu .help b{color:var(--fg);font-weight:700}
+#menu label{display:flex;align-items:center;gap:10px;font-size:14px;color:#c9b39c}
+#menu input[type=range]{flex:1;accent-color:var(--acc)}
+#menu .st{font-size:13px;color:#ffcf9a;min-height:1.3em}
+#tc{position:fixed;inset:0;z-index:5;display:none}
+#tc.on{display:block}
+#js{position:absolute;width:130px;height:130px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);display:none;transform:translate(-50%,-50%)}
+#js i{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px;border-radius:50%;background:rgba(255,170,90,.45)}
+.tb{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);color:#fff;font-weight:800;display:grid;place-items:center;font-size:13px;letter-spacing:.04em}
+.tb.on{background:rgba(255,140,40,.45)}
+#bFire{right:calc(env(safe-area-inset-right,0px) + 28px);bottom:calc(env(safe-area-inset-bottom,0px) + 40px);width:92px;height:92px;font-size:15px}
+#bJump{right:calc(env(safe-area-inset-right,0px) + 132px);bottom:calc(env(safe-area-inset-bottom,0px) + 22px);width:66px;height:66px}
+#bNext{right:calc(env(safe-area-inset-right,0px) + 36px);bottom:calc(env(safe-area-inset-bottom,0px) + 146px);width:60px;height:60px;font-size:20px}
+#bScore{left:calc(env(safe-area-inset-left,0px) + 14px);top:calc(env(safe-area-inset-top,0px) + 54px);width:44px;height:44px;font-size:17px}
+#bMenu{right:calc(env(safe-area-inset-right,0px) + 14px);top:calc(env(safe-area-inset-top,0px) + 12px);width:44px;height:44px;font-size:16px}
+#err{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:24px;text-align:center;z-index:20;background:var(--bg)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<canvas id="h"></canvas>
+<div id="tc"><div id="js"><i></i></div><div class="tb" id="bFire">ОГОНЬ</div><div class="tb" id="bJump">ПРЫЖОК</div><div class="tb" id="bNext">⟳</div><div class="tb" id="bScore">☰</div><div class="tb" id="bMenu">❚❚</div></div>
+<div id="menu"><div class="box">
+  <h1>АРЕНА</h1><div class="sub">Онлайн-дезматч · каждый сам за себя</div>
+  <div class="st" id="mname"></div>
+  <div class="st" id="mst">Подключение к серверу…</div>
+  <button id="play" disabled>ИГРАТЬ</button>
+  <div class="help" id="help"></div>
+  <label>Чувствительность <input type="range" id="sens" min="0.3" max="3" step="0.05"></label>
+  <label id="aimL" hidden><input type="checkbox" id="aim" style="width:20px;height:20px;accent-color:var(--acc)"> Помощь в прицеливании (лёгкая)</label>
+  <button class="sec" id="other"></button>
+  <button class="sec" id="exit">← Выйти в мессенджер</button>
+</div></div>
+<div id="err"></div>
+<script>
+/*GAMEJS*/
+</script>
+</body>
+</html>

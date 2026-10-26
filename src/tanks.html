@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0d1310">
+<title>Танки</title>
+<style>
+:root{--acc:#9be04a;--acc2:#ffd23a;--fg:#e9f0e2;--bg:#0d1310;--pn:rgba(14,22,16,.93)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:15px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;touch-action:none;overscroll-behavior:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#h{pointer-events:none}
+#menu{position:fixed;inset:0;z-index:10;display:flex;pointer-events:none}
+#menu .stage{flex:1;position:relative;pointer-events:none}
+#menu .logo{position:absolute;left:18px;top:calc(env(safe-area-inset-top,0px) + 12px);font-size:34px;font-weight:900;letter-spacing:.12em;color:var(--acc);text-shadow:0 0 18px rgba(150,230,70,.35),0 3px 0 #23400d}
+#menu .logo small{display:block;font-size:12px;letter-spacing:.06em;color:#b9c9ad;font-weight:600;text-shadow:none}
+#menu .pv{position:absolute;left:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);right:18px;font-size:13px;color:#cfdcc4;text-shadow:0 1px 3px #000}
+#menu .pv b{color:#fff;font-size:17px}
+#panel{width:min(420px,48vw);height:100%;overflow:auto;background:var(--pn);border-left:1px solid rgba(155,224,74,.18);padding:14px 14px calc(env(safe-area-inset-bottom,0px) + 16px);display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+@media (orientation:portrait){#menu{flex-direction:column}#menu .stage{flex:0 0 38%}#panel{width:100%;height:62%;border-left:0;border-top:1px solid rgba(155,224,74,.18)}}
+.room{font-size:13px;color:#b9c9ad}.room b{color:#fff}
+.st{font-size:13px;color:var(--acc2);min-height:1.2em}
+.tabs{display:flex;gap:6px}
+.tabs button{flex:1;font:inherit;font-weight:700;border:0;border-radius:10px;padding:9px 4px;font-size:13px;background:rgba(255,255,255,.07);color:#cfdcc4;cursor:pointer}
+.tabs button.on{background:var(--acc);color:#14230a}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.it{border-radius:12px;padding:9px 8px;background:rgba(255,255,255,.06);border:2px solid transparent;cursor:pointer;text-align:center;font-size:13px;font-weight:700;display:flex;flex-direction:column;gap:4px;align-items:center}
+.it.on{border-color:var(--acc);background:rgba(155,224,74,.12)}
+.it .sw{width:52px;height:32px;border-radius:7px;border:1px solid rgba(255,255,255,.25);background-size:cover}
+.it .ic{font-size:22px;line-height:1}
+.it small{font-weight:500;color:#9fb092;font-size:11px}
+.info{background:rgba(0,0,0,.28);border-radius:12px;padding:10px 12px;font-size:13px;color:#cfdcc4;display:flex;flex-direction:column;gap:5px}
+.info b{color:#fff;font-size:15px}
+.bar{display:flex;align-items:center;gap:8px;font-size:12px}
+.bar span{width:92px;color:#9fb092}
+.bar i{flex:1;height:7px;border-radius:4px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+.bar i u{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#6fbf2a,#c9f06a)}
+.note{font-size:12px;color:var(--acc2)}
+#panel>button,.row button{font:inherit;font-weight:800;letter-spacing:.06em;border:0;border-radius:12px;padding:13px 16px;cursor:pointer;background:var(--acc);color:#14230a;font-size:17px}
+#panel button.sec,.row button{background:rgba(255,255,255,.09);color:var(--fg);font-weight:600;font-size:14px;letter-spacing:0;padding:11px 12px}
+#panel button:disabled{opacity:.45}
+.row{display:flex;gap:8px}.row button{flex:1}
+label{display:flex;align-items:center;gap:10px;font-size:13px;color:#b9c9ad}
+input[type=range]{flex:1;accent-color:var(--acc)}
+.help{font-size:12px;color:#a9b99c;background:rgba(0,0,0,.25);border-radius:12px;padding:9px 12px;line-height:1.6}
+.help b{color:#fff}
+#rooms{position:fixed;inset:0;z-index:15;background:rgba(5,9,6,.86);display:none;align-items:center;justify-content:center;padding:16px}
+#rooms .box{width:min(440px,100%);max-height:100%;overflow:auto;background:#121c15;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px}
+#rooms .rm{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05)}
+#rooms .rm b{display:block;color:#fff}#rooms .rm small{color:#9fb092}
+#rooms .rm.on{outline:2px solid var(--acc)}
+#tc{position:fixed;inset:0;z-index:5;display:none}
+#tc.on{display:block}
+#js{position:absolute;width:130px;height:130px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);display:none;transform:translate(-50%,-50%)}
+#js i{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px;border-radius:50%;background:rgba(155,224,74,.45)}
+.tb{position:absolute;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);color:#fff;font-weight:800;display:grid;place-items:center;font-size:13px;letter-spacing:.04em}
+.tb.on{background:rgba(155,224,74,.45)}
+#bFire{right:calc(env(safe-area-inset-right,0px) + 28px);bottom:calc(env(safe-area-inset-bottom,0px) + 40px);width:96px;height:96px;font-size:15px}
+#bCenter{right:calc(env(safe-area-inset-right,0px) + 46px);bottom:calc(env(safe-area-inset-bottom,0px) + 150px);width:56px;height:56px;font-size:22px}
+#bTL,#bTR{bottom:calc(env(safe-area-inset-bottom,0px) + 30px);width:74px;height:74px;font-size:26px}
+#bTR{right:calc(env(safe-area-inset-right,0px) + 136px)}#bTL{right:calc(env(safe-area-inset-right,0px) + 220px)}
+#sup{position:fixed;z-index:6;left:calc(env(safe-area-inset-left,0px) + 14px);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);display:none;gap:6px}
+#sup button{position:relative;width:48px;height:48px;border-radius:10px;border:2px solid rgba(255,255,255,.28);background:rgba(10,16,10,.7);color:#fff;font:inherit;padding:0;cursor:pointer;touch-action:none}
+#sup button span{font-size:19px;line-height:44px}#sup button b{position:absolute;right:3px;bottom:1px;font-size:11px}#sup button em{position:absolute;left:4px;top:1px;font-size:10px;font-style:normal;color:#9fb092}
+#sup button i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:16px;color:#ffd23a;text-shadow:0 1px 3px #000}
+#sup button.off{opacity:.55}#sup button.off i:not(:empty){background:rgba(0,0,0,.45);border-radius:8px}
+html.touch #sup{bottom:auto;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 64px)}html.touch #sup button{width:44px;height:44px}html.touch #sup button span{line-height:40px}
+#bScore{left:calc(env(safe-area-inset-left,0px) + 14px);top:calc(env(safe-area-inset-top,0px) + 58px);width:44px;height:44px;font-size:17px}
+#bMenu{right:calc(env(safe-area-inset-right,0px) + 14px);top:calc(env(safe-area-inset-top,0px) + 12px);width:auto;height:40px;padding:0 14px;border-radius:12px;font-size:13px}
+.prof{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.3);border-radius:12px;padding:8px 10px}
+.prof img{width:40px;height:40px}
+.prof .pn{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font-size:13px}
+.prof .pn b{color:#fff;font-size:14px}.prof .pn small{color:#9fb092;font-size:11px}
+.prof .xp{height:5px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}.prof .xp i{display:block;height:100%;background:#ffd23a}
+.prof .cr{font-weight:800;color:#fff;font-size:15px;white-space:nowrap}
+.it.no{opacity:.72}
+.mods{display:flex;gap:5px;margin:2px 0}.mods span{font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;background:rgba(255,255,255,.08);color:#7d8b74;cursor:pointer}.mods span.on{background:#9be04a;color:#14230a}.mods span.cur{outline:2px solid #ffd23a}
+.bar em{width:104px;text-align:right;font-style:normal;color:#e9f0e2;font-size:11px}
+.acts{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.acts button{font:inherit;font-weight:800;border:0;border-radius:10px;padding:10px;cursor:pointer;background:var(--acc);color:#14230a;font-size:14px}
+.acts button.sec{background:rgba(255,210,58,.9);color:#2a2005}
+.acts button:disabled{opacity:.5;cursor:default;background:rgba(255,255,255,.12);color:#cfdcc4}
+.rmb{display:flex;gap:6px;margin-top:6px}.rmb button{flex:1;font:inherit;font-size:13px;font-weight:700;border:0;border-radius:10px;padding:9px 6px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.rmb button small{font-weight:500;color:#9fb092;font-size:11px}.rmb button.on{outline:2px solid var(--acc)}
+#err{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:24px;text-align:center;z-index:20;background:var(--bg)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<canvas id="h"></canvas>
+<div id="tc"><div id="js"><i></i></div><div class="tb" id="bFire">ОГОНЬ</div><div class="tb" id="bTL">◀</div><div class="tb" id="bTR">▶</div><div class="tb" id="bCenter">◎</div><div class="tb" id="bScore">☰</div><div class="tb" id="bMenu">ГАРАЖ</div></div>
+<div id="sup"></div>
+<div id="menu">
+  <div class="stage"><div class="logo">ТАНКИ<small>онлайн-битвы · ОлеговщинаСМС</small></div><div class="pv" id="pv"></div></div>
+  <div id="panel">
+    <div class="prof" id="prof"></div>
+    <div class="room" id="room"></div>
+    <div class="st" id="mst">Подключение к серверу…</div>
+    <div class="tabs"><button data-tab="h" class="on">Корпус</button><button data-tab="u">Пушка</button><button data-tab="c">Краска</button><button data-tab="s">Припасы</button></div>
+    <div class="list" id="list"></div>
+    <div class="info" id="info"></div>
+    <div class="note" id="eqnote"></div>
+    <button id="play" disabled>В БОЙ</button>
+    <div class="row"><button id="sd">Самоуничтожение</button><button id="rb">Сменить битву</button></div>
+    <label>Наклон камеры <input type="range" id="sens" min="0.3" max="3" step="0.05"></label>
+    <div class="help" id="help"></div>
+    <button class="sec" id="exit">← Выйти в мессенджер</button>
+  </div>
+</div>
+<div id="rooms"><div class="box"><b>Выберите битву</b><div id="rlist">Загрузка…</div><button class="sec" id="rclose" style="font:inherit;border:0;border-radius:12px;padding:11px;background:rgba(255,255,255,.09);color:#fff">Закрыть</button></div></div>
+<div id="err"></div>
+<script>
+/*TANKSJS*/
+</script>
+</body>
+</html>

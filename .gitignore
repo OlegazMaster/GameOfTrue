@@ -1,0 +1,11 @@
+# собранные программы — выкладываются в Releases, не в код
+dist/
+*.exe
+/olegovshchina*
+/shepot
+# данные сервера: пользователи, сообщения, ключи — никогда не в репозиторий
+shepot-data/
+*.pem
+tanks.json
+*.log
+.DS_Store

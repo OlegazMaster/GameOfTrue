@@ -1,0 +1,46 @@
+<div id="app">
+  <section id="boot" class="scr base center"><div class="spin"></div><div id="bootMsg">Загрузка…</div></section>
+  <section id="onb" class="scr base" hidden><div class="ob" id="onbBox"></div></section>
+  <section id="home" class="scr base" hidden>
+    <header class="bar">
+      <button class="ib" id="bMenu" aria-label="Профиль и настройки"></button>
+      <div class="ttl"><b id="meName"></b><small id="net">Подключение…</small></div>
+      <button class="ib" id="bSaved" aria-label="Избранное"></button>
+    </header>
+    <nav class="tabs" id="tabs"><button data-tab="chats" class="on">Чаты<span class="cnt" id="tabCnt" hidden></span></button><button data-tab="feed">Лента</button><button data-tab="game">Игра</button></nav>
+    <div class="view" id="chatsView">
+      <div id="srch"><input id="q" class="field" type="search" placeholder="Поиск по чатам" autocomplete="off"></div>
+      <div id="list" class="scroll"></div>
+    </div>
+    <div class="view" id="feedView" hidden>
+      <div id="fsrch"><input id="fq" class="field" type="search" placeholder="Поиск: #хештег или слово" autocomplete="off" enterkeyhint="search"></div>
+      <div id="feed" class="scroll"></div>
+      <button id="feedNew" hidden>↑ Новые посты</button>
+    </div>
+    <div class="view" id="gameView" hidden><div class="scroll" id="gameBox"></div></div>
+    <button id="fab" aria-label="Найти человека"></button>
+  </section>
+  <section id="chat" class="scr">
+    <header class="bar">
+      <button class="ib" id="cBack" aria-label="Назад"></button>
+      <div id="cAv" class="hdr-av"></div>
+      <div class="ttl chat-ttl" id="cTtl"><b></b><small></small></div>
+      <button class="ib" id="cMore" aria-label="О собеседнике"></button>
+    </header>
+    <div id="keyWarn" class="keywarn" hidden>Ключ собеседника изменился. Сверьте код безопасности в профиле собеседника.</div>
+    <div id="msgs" class="scroll"></div>
+    <button id="toBottom" hidden aria-label="Вниз"></button>
+    <div id="ctxbar" hidden></div>
+    <footer id="composer">
+      <button class="ib" id="bAttach" aria-label="Отправить фото"></button>
+      <textarea id="inp" rows="1" placeholder="Сообщение" enterkeyhint="send"></textarea>
+      <button class="ib go" id="bSend" aria-label="Отправить"></button>
+    </footer>
+  </section>
+  <div class="scrim" id="scrim"></div>
+  <div class="sheet" id="sheet"></div>
+  <div id="viewer" hidden></div>
+  <div id="toast" role="status"></div>
+  <input type="file" id="fImg" accept="image/*" hidden>
+  <input type="file" id="fPost" accept="image/*" multiple hidden>
+</div>
