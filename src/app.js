@@ -552,7 +552,7 @@ async function renderGame(){
   if(!box.innerHTML)box.innerHTML=`<div class="arena"><div class="arena-hero tanks-hero"><div class="arena-t tanks-t">ТАНКИ</div><div class="arena-s">Онлайн-битвы на танках · 4 режима · 8 карт</div></div>
     <div id="tRooms"></div>
     <div class="card"><div class="pad"><span class="lbl">Техника</span><div class="arena-w"><span><b>7 корпусов</b> Оса · Шершень · Хантер · Викинг · Диктатор · Титан · Мамонт</span><span><b>11 пушек</b> Смоки · Огнемёт · Твинс · Рельса · Изида · Молот · Тандер · Фриз · Рикошет · Шафт · Вулкан</span><span><b>5 припасов</b> ремкомплект · броня · урон · ускорение · мины</span><span><b>Ящики</b> с неба и золотой ящик на 1000 💎</span><span><b>30 званий</b> и кристаллы</span></div>
-      <span class="note">Характеристики M0–M3, цены и звания — как в «Танках Онлайн». ${coarse?'Джойстик — езда, кнопки ◀ ▶ — башня, ОГОНЬ — выстрел, припасы — кнопки вверху.':'WASD — езда, стрелки ← → — башня, пробел — огонь, 1–5 — припасы.'}</span></div></div>
+      <span class="note">Модификации M0–M3, цены и звания. ${coarse?'Джойстик — езда, кнопки ◀ ▶ — башня, ОГОНЬ — выстрел, припасы — кнопки вверху.':'WASD — езда, стрелки ← → — башня, пробел — огонь, 1–5 — припасы.'}</span></div></div>
   </div><div class="arena"><div class="arena-hero"><div class="arena-t">АРЕНА</div><div class="arena-s">3D-шутер от первого лица · онлайн-дезматч</div></div>
     <div id="gMaps"></div>
     <div class="card"><div class="pad"><span class="lbl">Оружие</span><div class="arena-w">${['Бластер','Дробовик','Автомат','Гранатомёт','Ракетница','Гипербластер','Рельсотрон','Огнемёт','BFG'].map((n,i)=>`<span><b>${i+1}</b> ${n}</span>`).join('')}</div>

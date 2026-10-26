@@ -112,7 +112,7 @@ html.touch #sup{bottom:auto;left:50%;transform:translateX(-50%);top:calc(env(saf
 <div id="err"></div>
 <script>
 'use strict';
-/* Танки — онлайн-бои на танках в духе «Танков Онлайн». Чистый WebGL; урон, счёт и матчи считает сервер мессенджера. */
+/* Танки — онлайн-бои на танках. Чистый WebGL; урон, счёт и матчи считает сервер мессенджера. */
 const $=s=>document.querySelector(s);
 const LS='shepot.v1';
 let SES=null;try{SES=JSON.parse(localStorage.getItem(LS)||'null')}catch(e){}
@@ -362,7 +362,7 @@ function physics(dt,S){
   let th=(fw?1:0)-(bk?1:0)-mvy,st=(K.KeyA?1:0)-(K.KeyD?1:0)-mvx;
   if(scoping){th=0;st=0} // в прицеле Шафта танк стоит, стрелки двигают прицел
   th=clamp(th,-1,1);st=clamp(st,-1,1);if(Math.abs(th)<.12)th=0;if(Math.abs(st)<.12)st=0;
-  // разгон по мощности и массе, как в оригинале: лёгкие быстро, тяжёлые медленно
+  // разгон по мощности и массе: лёгкие быстро, тяжёлые медленно
   const accK=mv(H,'pw',hm)/mv(H,'m',hm)*12,target=th*sp*(th<0?.75:1),acc=(Math.sign(target)!==Math.sign(P.spd)&&P.spd!==0?2:1)*accK*nitro;
   P.spd+=clamp(target-P.spd,-acc*dt,acc*dt);if(!th)P.spd*=Math.max(0,1-2.4*dt);
   P.yaw=wrap(P.yaw+st*trn*dt);

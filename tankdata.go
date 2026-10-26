@@ -1,5 +1,4 @@
-// «Танки»: характеристики техники M0–M3, звания и цены — по вики ProTanki (копия «Танков Онлайн» до 2015 года):
-// https://wiki.pro-tanki.online/en/Turrets и https://wiki.pro-tanki.online/en/Hulls
+// «Танки»: характеристики техники M0–M3, звания и цены.
 package main
 
 import "math"
@@ -56,7 +55,7 @@ type Turret struct {
 	Price  [4]int        `json:"pr"`
 }
 
-// звания в порядке «Танков Онлайн»
+// звания по возрастанию
 const (
 	rRecruit = iota
 	rPrivate

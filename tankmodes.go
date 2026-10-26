@@ -37,7 +37,7 @@ type TMine struct {
 }
 
 const (
-	supDur      = 60 * time.Second // броня, урон, ускорение — по вики ProTanki
+	supDur      = 60 * time.Second // броня, урон, ускорение
 	repairCD    = 30 * time.Second
 	mineCD      = 30 * time.Second
 	flagReturn  = 30 * time.Second
